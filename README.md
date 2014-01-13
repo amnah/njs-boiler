@@ -24,4 +24,5 @@ It was heavily inspired by [nodejs-passport-boilerplate]
 2. ```cd myappname && npm install```
 3. ```nano config/config.js``` modify as desired
 4. ```node app.js```
-5. For specifying different environments ```NODE_ENV=production node app.js```
+5. Open up browser to http://localhost:3000
+6. For specifying different environments ```NODE_ENV=production node app.js```
