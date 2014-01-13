@@ -4,6 +4,8 @@ var bcrypt = require('bcrypt-nodejs');
 
 // -----------------------------------
 // Schema
+//   set email and username as sparse - this is to allow null values for
+//   social registrations
 // -----------------------------------
 var userSchema = new mongoose.Schema({
   email: { type: String, trim: true, unique: true, sparse: true },
@@ -22,6 +24,8 @@ var userSchema = new mongoose.Schema({
 
 // -----------------------------------
 // Validators
+//   note that we dont validate uniqueness here. that is handled in the controller
+//   http://nraj.tumblr.com/post/38706353543/handling-uniqueness-validation-in-mongo-mongoose
 // -----------------------------------
 // define validation functions
 var validateRequired = function(value) {

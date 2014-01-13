@@ -41,6 +41,7 @@ module.exports.controller = function(app) {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) {
+        // set flash values for refilling form values and displaying errors
         req.flash('reqBody', req.body);
         req.flash('errors', info);
         return res.redirect('/login');
