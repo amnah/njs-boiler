@@ -1,0 +1,15 @@
+{% extends '../layouts/main.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+<!-- this is how you add to/override the header block in layouts/main.html -->
+<!-- use {% parent %} to add to it -->
+<!-- remove {% parent %} to override it -->
+{% block head %}
+{% parent %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ site.title }} by {{ site.author }}</h1>
+<p>{{ site.description }}</p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "*",
+    "swig": "*",
+    "less-middleware": "*",
+    "mongoose": "*",
+    "bcrypt-nodejs": "*",
+    "connect-mongo": "*",
+    "connect-flash": "*",
+    "passport": "*",
+    "passport-local": "*"
+  }
+}
