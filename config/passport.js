@@ -39,6 +39,11 @@ passport.use(new LocalStrategy({
       if (!user) {
         return done(null, false, { loginErrorMessage: 'Email/username not found' });
       }
+      /* Uncomment this is you want to inform users about social logins
+      if (!user.password) {
+        return done(null, false, { passwordErrorMessage: 'No password set. Social login?' });
+      }
+      */
       if (!user.verifyPassword(password)) {
         return done(null, false, { passwordErrorMessage: 'Incorrect password' });
       }

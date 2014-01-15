@@ -74,7 +74,7 @@ userSchema.methods.encryptPassword = function(inputPassword) {
  * Verify password
  */
 userSchema.methods.verifyPassword = function(checkPassword) {
-  return bcrypt.compareSync(checkPassword, this.password);
+  return this.password && bcrypt.compareSync(checkPassword, this.password);
 };
 
 /**
