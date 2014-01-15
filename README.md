@@ -1,6 +1,8 @@
 Node.js Boiler
 ==========
 
+### [Demo](aa)
+
 This boilerplate was built for PHP developers who wish to try out Node.js.
 That is, the structure and style of this app are very similar to that of the
 popular PHP MVC frameworks.
@@ -19,7 +21,7 @@ It was heavily inspired by [nodejs-passport-boilerplate]
     * Schema and validation for User model
 * Swig template (instead of jade)
     * Similar syntax to PHP
-    * LESS for compiling CSS
+* LESS for compiling CSS
 * Passport for user authentication
     * User login/registration
     * Facebook integration
