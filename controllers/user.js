@@ -21,6 +21,7 @@ module.exports.controller = function(app) {
     res.redirect('/');
   });
 
+
   /**
    * GET login
    */
@@ -34,10 +35,9 @@ module.exports.controller = function(app) {
 
   /**
    * POST login
-   * https://github.com/jaredhanson/passport-local/blob/master/examples/express3-mongoose-multiple-files/routes/user.js
+   *   https://github.com/jaredhanson/passport-local/blob/master/examples/express3-mongoose-multiple-files/routes/user.js
    */
   app.post('/login', middleware.isLoggedOut, function(req, res, next) {
-    // use passport authentication
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) {
@@ -54,6 +54,7 @@ module.exports.controller = function(app) {
       });
     })(req, res, next);
   });
+
 
   /**
    * GET register
@@ -96,4 +97,28 @@ module.exports.controller = function(app) {
       });
     });
   });
+
+
+  /**
+   * GET facebook
+   *   https://github.com/jaredhanson/passport-facebook/blob/master/examples/login/app.js
+   */
+  app.get('/auth/facebook',
+    passport.authenticate('facebook', { scope: ['email', 'user_about_me'] }),
+    function(req, res, next){
+      // The request will be redirected to Facebook for authentication, so this
+      // function will not be called.
+    }
+  );
+
+  /**
+   * GET facebook callback
+   *   https://github.com/jaredhanson/passport-facebook/blob/master/examples/login/app.js
+   */
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', { failureRedirect: '/' }),
+    function(req, res) {
+      res.redirect('/');
+    }
+  );
 };

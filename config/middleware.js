@@ -7,7 +7,8 @@ var config = require(path.join(__dirname, 'config'));
 //   use in "controllers/*.js"
 // -----------------------------------
 /**
- * Ensure user is logged in. Set url to redirect after logging in
+ * Ensure user is logged in
+ * Set url in flash to redirect user after logging in
  */
 exports.isLoggedIn = function (req, res, next) {
   if (req.isAuthenticated()) { return next(); }

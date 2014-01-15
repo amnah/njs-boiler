@@ -26,16 +26,17 @@ var userSchema = new mongoose.Schema({
 // Validators
 //   note that we dont validate uniqueness here. that is handled in the controller
 //   http://nraj.tumblr.com/post/38706353543/handling-uniqueness-validation-in-mongo-mongoose
+//   https://groups.google.com/forum/?fromgroups=#!topic/mongoose-orm/BX7kz0BwLjk
 // -----------------------------------
 // define validation functions
 var validateRequired = function(value) {
-  return (value !== null && value.length);
+  return (value && value.length);
 };
 var validateEmail = function(value) {
   return value.match(/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!\.)){0,61}[a-zA-Z0-9]?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9\-](?!$)){0,61}[a-zA-Z0-9]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/);
 };
 var validateAlphanumericUnderscore = function(value) {
-  return value.match(/^[a-zA-Z0-9_]+$/);
+  return value.match(/^[a-zA-Z0-9_.]+$/);
 };
 var validatePasswordLength = function(value) {
   return value.length >= 3;
@@ -45,7 +46,7 @@ var validatePasswordLength = function(value) {
 userSchema.path('email').validate(validateRequired, 'Email is required');
 userSchema.path('email').validate(validateEmail, 'Invalid email');
 userSchema.path('username').validate(validateRequired, 'Username is required');
-userSchema.path('username').validate(validateAlphanumericUnderscore, 'Username must be alphanumeric');
+userSchema.path('username').validate(validateAlphanumericUnderscore, 'Username must be alphanumeric, ".", or "_"');
 userSchema.path('password').validate(validateRequired, 'Password is required');
 userSchema.path('password').validate(validatePasswordLength, 'Password not long enough');
 

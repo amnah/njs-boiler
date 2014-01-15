@@ -11,6 +11,10 @@ var config = {
   cookieSecret: 'your secret here',
   rememberMeDuration: 2592000000, // 30*24*60*60*1000 Rememeber 'me' for 30 days (milliseconds i guess)
 
+  facebookAppId: 'xxx',
+  facebookAppSecret: 'yyy',
+  facebookCallbackUrl: 'http://localhost:3000/auth/facebook/callback',
+
   // example site config
   // these variables will be available in all views, e.g., {{ site.title }}
   site: {
