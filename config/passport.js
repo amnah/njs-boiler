@@ -72,20 +72,14 @@ passport.use(new FacebookStrategy({
 
     // attempt to find user based on facebook id
     User.findOne({ 'facebook.id': profile.id }, function (err, user) {
-
-      // return error
       if (err) { return done(err); }
-
-      // return user directly if found
       if (user) { return done(err, user); }
 
-      // try to find a user with the email
+      // try to link existing user via email
       User.findOne({ email: profile.emails[0].value }, function (err, userEmailCheck) {
-
-        // return error
         if (err) { return done(err); }
 
-        // use the found user or create new one
+        // link existing user if found, or create new one
         if (userEmailCheck) {
           user = userEmailCheck;
           user.facebook = profile._json;
@@ -100,30 +94,12 @@ passport.use(new FacebookStrategy({
           });
         }
 
-        // double-check that no one else has that username
-        // note that we use "user.username" instead of "profile.username" because the user may have
-        //   a valid username already. in that case, it will not find a conflict
-        var condition = { username: user.username, _id: { "$ne": user._id } };
-        User.findOne(condition, function (err, userUsernameCheck) {
+        // check username and save document
+        checkUsernameAndSave(user, 'facebook_' + profile.id, done);
 
-          // return error
-          if (err) { return done(err); }
-
-          // set a placeholder username
-          if (userUsernameCheck) {
-            user.username = 'facebook_' + profile.id;
-          }
-
-          // save (FINALLY)
-          user.save(function (err) {
-            if (err) { return done(err); }
-            return done(err, user);
-          });
-
-        }); // end find username
-      }); // end find email
-    }); // end find facebook id
-  } // end function(accessToken, refreshToken, profile, done)
+      });
+    });
+  }
 ));
 
 /**
@@ -142,42 +118,50 @@ passport.use(new TwitterStrategy({
   },
   function(token, tokenSecret, profile, done) {
 
-    // attempt to find user based on facebook id
+    // attempt to find user based on twitter id
     User.findOne({ 'twitter.id_str': profile.id }, function (err, user) {
-
-      // return error
       if (err) { return done(err); }
-
-      // return user directly if found
       if (user) { return done(err, user); }
 
-      // create new user
+      // create new user, check username, and save
       user = new User({
         username: profile.username,
         name: profile.displayName,
         provider: 'twitter',
         twitter: profile._json
       });
+      checkUsernameAndSave(user, 'twitter_' + profile.id, done);
 
-      // double-check that no one else has that username
-      var condition = { username: user.username, _id: { "$ne": user._id } };
-      User.findOne(condition, function (err, userUsernameCheck) {
-
-        // return error
-        if (err) { return done(err); }
-
-        // set a placeholder username
-        if (userUsernameCheck) {
-          user.username = 'twitter_' + profile.id;
-        }
-
-        // save (FINALLY)
-        user.save(function (err) {
-          if (err) { return done(err); }
-          return done(err, user);
-        });
-
-      }); // end find username
-    }); // end find twitter id
-  } // end function(token, tokenSecret, profile, done)
+    });
+  }
 ));
+
+// -----------------------------------
+// Helper functions
+// -----------------------------------
+/**
+ * Check if the username already exists
+ * If so, replace with alternateName
+ * Save afterwards
+ */
+function checkUsernameAndSave(user, alternateName, done) {
+
+  // check for a user document with the username but a different id (=duplicate)
+  var condition = { username: user.username, _id: { "$ne": user._id } };
+  User.findOne(condition, function (err, userUsernameCheck) {
+
+    // return error
+    if (err) { return done(err); }
+
+    // set placeholder username
+    if (userUsernameCheck) {
+      user.username = alternateName;
+    }
+
+    // save
+    user.save(function (err) {
+      if (err) { return done(err); }
+      return done(err, user);
+    });
+  });
+}
