@@ -14,12 +14,14 @@ var userSchema = new mongoose.Schema({
   password: String,
   provider: {
     type: String,
-    enum: ['local', 'github', 'twitter', 'facebook', 'google']
+    enum: ['local', 'facebook', 'twitter']
   },
-  facebook: {},
-  twitter: {},
-  github: {},
-  google: {}
+  facebook: {
+    id: { type: String, unique: true, sparse: true }
+  },
+  twitter: {
+    id_str: { type: String, unique: true, sparse: true }
+  }
 });
 
 // -----------------------------------
