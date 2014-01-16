@@ -5,6 +5,7 @@ var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
+var TwitterStrategy = require('passport-twitter').Strategy;
 
 // -----------------------------------
 // Persistent login sessions
@@ -117,10 +118,66 @@ passport.use(new FacebookStrategy({
           user.save(function (err) {
             if (err) { return done(err); }
             return done(err, user);
-          })
+          });
 
         }); // end find username
       }); // end find email
     }); // end find facebook id
   } // end function(accessToken, refreshToken, profile, done)
+));
+
+/**
+ * Twitter strategy. Logic is:
+ * 1) Check for user who has the twitter id -> simply return that user
+ * 2) Create new user. In this case, check for another user who may have the username
+ *    already -> fill "username" field with placeholder to prevent conflict
+ *
+ *   http://passportjs.org/guide/facebook/
+ *   use in "controllers/user.js" in "app.post('/auth/facebook/callback', ...)"
+ */
+passport.use(new TwitterStrategy({
+    consumerKey: config.twitterConsumerKey,
+    consumerSecret: config.twitterConsumerSecret,
+    callbackURL: config.twitterCallbackUrl
+  },
+  function(token, tokenSecret, profile, done) {
+
+    // attempt to find user based on facebook id
+    User.findOne({ 'twitter.id_str': profile.id }, function (err, user) {
+
+      // return error
+      if (err) { return done(err); }
+
+      // return user directly if found
+      if (user) { return done(err, user); }
+
+      // create new user
+      user = new User({
+        username: profile.username,
+        name: profile.displayName,
+        provider: 'twitter',
+        twitter: profile._json
+      });
+
+      // double-check that no one else has that username
+      var condition = { username: user.username, _id: { "$ne": user._id } };
+      User.findOne(condition, function (err, userUsernameCheck) {
+
+        // return error
+        if (err) { return done(err); }
+
+        // set a placeholder username
+        if (userUsernameCheck) {
+          user.username = 'twitter_' + profile.id;
+        }
+
+        // save (FINALLY)
+        user.save(function (err) {
+          if (err) { return done(err); }
+          return done(err, user);
+        });
+
+      }); // end find username
+    }); // end find twitter id
+  } // end function(token, tokenSecret, profile, done)
 ));

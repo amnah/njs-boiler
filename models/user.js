@@ -93,6 +93,13 @@ userSchema.methods.setScenario = function(scenario) {
   return this;
 };
 
+/**
+ * Displays user's email or username (because email can be blank)
+ */
+userSchema.methods.displayName = function() {
+  return this.email ? this.email : this.username;
+};
+
 // -----------------------------------
 // Model and export
 // -----------------------------------

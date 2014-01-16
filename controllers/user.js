@@ -121,4 +121,27 @@ module.exports.controller = function(app) {
       res.redirect('/');
     }
   );
+
+  /**
+   * GET twitter
+   *   https://github.com/jaredhanson/passport-twitter/blob/master/examples/signin/app.js
+   */
+  app.get('/auth/twitter',
+    passport.authenticate('twitter', { scope: ['email', 'user_about_me'] }),
+    function(req, res, next){
+      // The request will be redirected to Twitter for authentication, so this
+      // function will not be called.
+    }
+  );
+
+  /**
+   * GET twitter callback
+   *   https://github.com/jaredhanson/passport-twitter/blob/master/examples/signin/app.js
+   */
+  app.get('/auth/twitter/callback',
+    passport.authenticate('twitter', { failureRedirect: '/' }),
+    function(req, res) {
+      res.redirect('/');
+    }
+  );
 };

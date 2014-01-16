@@ -15,6 +15,10 @@ var config = {
   facebookAppSecret: 'yyy',
   facebookCallbackUrl: 'http://localhost:3000/auth/facebook/callback',
 
+  twitterConsumerKey: 'xxx',
+  twitterConsumerSecret: 'yyy',
+  twitterCallbackUrl: 'http://localhost:3000/auth/twitter/callback',
+
   // example site config
   // these variables will be available in all views, e.g., {{ site.title }}
   site: {
