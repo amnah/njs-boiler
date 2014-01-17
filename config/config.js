@@ -11,13 +11,21 @@ var config = {
   cookieSecret: 'your secret here',
   rememberMeDuration: 2592000000, // 30*24*60*60*1000 Rememeber 'me' for 30 days (milliseconds i guess)
 
-  facebookAppId: 'xxx',
-  facebookAppSecret: 'yyy',
-  facebookCallbackUrl: 'http://localhost:3000/auth/facebook/callback',
+  // facebook config
+  // comment these out if you don't want facebook authentication
+  facebook: {
+    clientID:    'xxx',
+    clientSecret: 'yyy',
+    callbackURL: 'http://localhost:3000/auth/facebook/callback'
+  },
 
-  twitterConsumerKey: 'xxx',
-  twitterConsumerSecret: 'yyy',
-  twitterCallbackUrl: 'http://localhost:3000/auth/twitter/callback',
+  // twitter config
+  // comment these out if you don't want twitter authentication
+  twitter: {
+    consumerKey: 'xxx',
+    consumerSecret: 'yyy',
+    callbackURL: 'http://localhost:3000/auth/twitter/callback'
+  },
 
   // example site config
   // these variables will be available in all views, e.g., {{ site.title }}

@@ -63,12 +63,8 @@ passport.use(new LocalStrategy({
  *   http://passportjs.org/guide/facebook/
  *   use in "controllers/user.js" in "app.post('/auth/facebook/callback', ...)"
  */
-passport.use(new FacebookStrategy({
-    clientID: config.facebookAppId,
-    clientSecret: config.facebookAppSecret,
-    callbackURL: config.facebookCallbackUrl
-  },
-  function(accessToken, refreshToken, profile, done) {
+if (config.facebook) {
+  passport.use(new FacebookStrategy(config.facebook, function(accessToken, refreshToken, profile, done) {
 
     // attempt to find user based on facebook id
     User.findOne({ 'facebook.id': profile.id }, function (err, user) {
@@ -96,11 +92,10 @@ passport.use(new FacebookStrategy({
 
         // check username and save document
         checkUsernameAndSave(user, 'facebook_' + profile.id, done);
-
       });
     });
-  }
-));
+  }));
+}
 
 /**
  * Twitter strategy. Logic is:
@@ -111,12 +106,8 @@ passport.use(new FacebookStrategy({
  *   http://passportjs.org/guide/facebook/
  *   use in "controllers/user.js" in "app.post('/auth/facebook/callback', ...)"
  */
-passport.use(new TwitterStrategy({
-    consumerKey: config.twitterConsumerKey,
-    consumerSecret: config.twitterConsumerSecret,
-    callbackURL: config.twitterCallbackUrl
-  },
-  function(token, tokenSecret, profile, done) {
+if (config.twitter) {
+  passport.use(new TwitterStrategy(config.twitter, function(token, tokenSecret, profile, done) {
 
     // attempt to find user based on twitter id
     User.findOne({ 'twitter.id_str': profile.id }, function (err, user) {
@@ -131,10 +122,9 @@ passport.use(new TwitterStrategy({
         twitter: profile._json
       });
       checkUsernameAndSave(user, 'twitter_' + profile.id, done);
-
     });
-  }
-));
+  }));
+}
 
 // -----------------------------------
 // Helper functions
