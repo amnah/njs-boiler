@@ -1,6 +1,8 @@
 Node.js Boiler
 ==========
 
+### [Demo](http://njs-boiler.amnahdev.com:3000)
+
 This boilerplate was built for PHP developers who wish to try out Node.js.
 That is, the structure and style of this app are very similar to that of the
 popular PHP MVC frameworks.
@@ -23,6 +25,7 @@ It was heavily inspired by [nodejs-passport-boilerplate]
 * Passport for user authentication
     * User login/registration
     * Facebook integration
+    * Twitter integration
 * MongoDB session store via connect-mongo
 * Flash messages via connect-flash
 
@@ -39,4 +42,4 @@ It was heavily inspired by [nodejs-passport-boilerplate]
 for routing in controllers
 * [Mongoose guide](http://mongoosejs.com/docs/guide.html)
 * [Swig syntax](http://paularmstrong.github.io/swig/docs/#vriables)
-* [Passport guide](http://passportjs.org/)
+* [Passport guide](http://passportjs.org/guide)
