@@ -36,6 +36,12 @@ It was heavily inspired by [nodejs-passport-boilerplate]
 4. ```node app.js```
 5. Open up browser to ```http://localhost:3000```
 6. For specifying different environments ```NODE_ENV=production node app.js```
+7. *Optional* - Add indexes for facebook/twitter id
+
+```javascript
+db.users.ensureIndex({"facebook.id":1})
+db.users.ensureIndex({"twitter.id_str":1})
+```
 
 ### Good reads
 * [Express routing](http://expressjs.com/api.html#app.VERB)

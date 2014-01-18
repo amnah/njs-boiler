@@ -16,12 +16,8 @@ var userSchema = new mongoose.Schema({
     type: String,
     enum: ['local', 'facebook', 'twitter']
   },
-  facebook: {
-    id: { type: String, unique: true, sparse: true }
-  },
-  twitter: {
-    id_str: { type: String, unique: true, sparse: true }
-  }
+  facebook: {},
+  twitter: {}
 });
 
 // -----------------------------------
