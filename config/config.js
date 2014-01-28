@@ -9,7 +9,7 @@ var config = {
   port: port,
   db: 'mongodb://localhost/dev',
   cookieSecret: 'your secret here',
-  rememberMeDuration: 2592000000, // 30*24*60*60*1000 Rememeber 'me' for 30 days (milliseconds i guess)
+  rememberMeDuration: 30*24*60*60*1000, // 'remember me' for 30 days (milliseconds)
 
   // facebook config
   // comment these out if you don't want facebook authentication

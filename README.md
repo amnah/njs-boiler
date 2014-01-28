@@ -44,8 +44,10 @@ db.users.ensureIndex({"twitter.id_str":1})
 ```
 
 ### Good reads
+* [Understanding Node modules - require() and modules]
+(http://amnah.net/2014/01/29/learning-node-js-part-1-require-and-modules/)
 * [Express routing](http://expressjs.com/api.html#app.VERB)
 for routing in controllers
 * [Mongoose guide](http://mongoosejs.com/docs/guide.html)
-* [Swig syntax](http://paularmstrong.github.io/swig/docs/#vriables)
+* [Swig syntax](http://paularmstrong.github.io/swig/docs/#variables)
 * [Passport guide](http://passportjs.org/guide)
