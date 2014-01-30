@@ -10,7 +10,7 @@ var config = require(path.join(__dirname, 'config'));
  * Ensure user is logged in
  * Set url in flash to redirect user after logging in
  */
-exports.isLoggedIn = function (req, res, next) {
+exports.isLoggedIn = function(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
   req.flash('loginUrl', req.originalUrl);
   res.redirect('/login');
@@ -19,7 +19,7 @@ exports.isLoggedIn = function (req, res, next) {
 /**
  * Ensure user is logged out
  */
-exports.isLoggedOut = function (req, res, next) {
+exports.isLoggedOut = function(req, res, next) {
   if (!req.isAuthenticated()) { return next(); }
   res.redirect('/');
 };
@@ -32,7 +32,7 @@ exports.isLoggedOut = function (req, res, next) {
  * Set session length for login based on "rememberme" in login form
  * Process for login page only (via POST)
  */
-exports.rememberMe = function (req, res, next) {
+exports.rememberMe = function(req, res, next) {
   if ( req.method == 'POST' && req.url == '/login' ) {
     if ( req.body.rememberme ) {
       req.session.cookie.maxAge = config.rememberMeDuration;
@@ -47,7 +47,7 @@ exports.rememberMe = function (req, res, next) {
 /**
  * Ensure that site config and user variables are available in all views
  */
-exports.responseLocalVariables = function (req, res, next) {
+exports.responseLocalVariables = function(req, res, next) {
   res.locals.user = req.user;
   if (typeof config.site !== 'undefined') {
     res.locals.site = config.site;
