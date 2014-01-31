@@ -1,7 +1,7 @@
 
 var path = require('path');
 var passport = require('passport');
-var middleware = require(path.join(__dirname, '../config/middleware'));
+var middleware = require('../config/middleware');
 var User = require('../models/user');
 
 module.exports.controller = function(app) {

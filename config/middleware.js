@@ -1,6 +1,6 @@
 
 var path = require('path');
-var config = require(path.join(__dirname, 'config'));
+var config = require('./config');
 
 // -----------------------------------
 // Middleware for routing in controllers

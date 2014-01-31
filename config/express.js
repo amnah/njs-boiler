@@ -5,8 +5,8 @@ var swig = require('swig');
 var flash = require('connect-flash');
 var passport = require('passport');
 var MongoStore = require('connect-mongo')(express);
-var config = require(path.join(__dirname, 'config'));
-var middleware = require(path.join(__dirname, 'middleware'));
+var config = require('./config');
+var middleware = require('./middleware');
 
 // create express app
 //   note that middleware order is important!

@@ -1,7 +1,7 @@
 
 var path = require('path');
-var config = require(path.join(__dirname, 'config'));
-var User = require(path.join(__dirname, '../models/user'));
+var config = require('./config');
+var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
