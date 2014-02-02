@@ -1,18 +1,17 @@
 
-var path = require('path');
 var fs = require('fs');
 var http = require('http');
 
 // get config
 // (environment is based on NODE_ENV, or can be calculated in the config file itself)
-var config = require(path.join(__dirname, 'config/config'));
+var config = require('./config/config');
 
 // set up express app
-var app = require(path.join(__dirname, 'config/express'));
+var app = require('./config/express');
 
 // add controllers/routes
 //   http://timstermatic.github.io/blog/2013/08/17/a-simple-mvc-framework-with-node-and-express/
-var controllerPath = path.join(__dirname, 'controllers');
+var controllerPath = './controllers';
 fs.readdirSync(controllerPath).forEach(function (file) {
   if (file.substr(-3) === '.js') {
     route = require(controllerPath + '/' + file);
@@ -21,7 +20,7 @@ fs.readdirSync(controllerPath).forEach(function (file) {
 });
 
 // set up passport authentication
-require(path.join(__dirname, 'config/passport'));
+require('./config/passport');
 
 // connect to db
 require('mongoose').connect(config.db);
