@@ -1,4 +1,5 @@
 
+var path = require('path');
 var fs = require('fs');
 var http = require('http');
 
@@ -11,7 +12,7 @@ var app = require('./config/express');
 
 // add controllers/routes
 //   http://timstermatic.github.io/blog/2013/08/17/a-simple-mvc-framework-with-node-and-express/
-var controllerPath = './controllers';
+var controllerPath = path.join(__dirname, 'controllers');
 fs.readdirSync(controllerPath).forEach(function (file) {
   if (file.substr(-3) === '.js') {
     route = require(controllerPath + '/' + file);
