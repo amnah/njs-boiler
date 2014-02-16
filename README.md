@@ -1,7 +1,7 @@
 Node.js Boiler
 ==========
 
-### [Demo](http://njs-boiler.amnahdev.com:3000)
+### [Demo](http://njs-boiler.herokuapp.com/)
 
 This boilerplate was built for PHP developers who wish to try out Node.js.
 That is, the structure and style of this app are very similar to that of the
