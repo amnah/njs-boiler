@@ -1,7 +1,6 @@
 
-var path = require('path');
 var passport = require('passport');
-var middleware = require('../config/middleware');
+var auth = require('../libraries/auth');
 var User = require('../models/user');
 
 module.exports.controller = function(app) {
@@ -9,7 +8,7 @@ module.exports.controller = function(app) {
   /**
    * GET user (account)
    */
-  app.get('/user', middleware.isLoggedIn, function(req, res) {
+  app.get('/user', auth.isLoggedIn, function(req, res) {
     res.render('user/index', { title: 'User', user: req.user });
   });
 
@@ -25,7 +24,7 @@ module.exports.controller = function(app) {
   /**
    * GET login
    */
-  app.get('/login', middleware.isLoggedOut, function(req, res){
+  app.get('/login', auth.isLoggedOut, function(req, res){
     res.render('user/login', {
       title: 'Login',
       errors: req.flash('errors')[0],
@@ -37,7 +36,7 @@ module.exports.controller = function(app) {
    * POST login
    *   https://github.com/jaredhanson/passport-local/blob/master/examples/express3-mongoose-multiple-files/routes/user.js
    */
-  app.post('/login', middleware.isLoggedOut, function(req, res, next) {
+  app.post('/login', auth.isLoggedOut, function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
       if (err) { return next(err); }
       if (!user) {
@@ -45,6 +44,12 @@ module.exports.controller = function(app) {
         req.flash('reqBody', req.body);
         req.flash('errors', info);
         return res.redirect('/login');
+      }
+      if (req.body.rememberme) {
+        req.session.cookie.maxAge = config.rememberMeDuration;
+      }
+      else {
+        req.session.cookie.expires = false;
       }
       req.logIn(user, function(err) {
         if (err) { return next(err); }
@@ -59,7 +64,7 @@ module.exports.controller = function(app) {
   /**
    * GET register
    */
-  app.get('/register', middleware.isLoggedOut, function(req, res){
+  app.get('/register', auth.isLoggedOut, function(req, res){
     res.render('user/register', {
       title: 'Register',
       errors: req.flash('errors')[0],
@@ -70,7 +75,7 @@ module.exports.controller = function(app) {
   /**
    * POST register
    */
-  app.post('/register', middleware.isLoggedOut, function(req, res, next) {
+  app.post('/register', auth.isLoggedOut, function(req, res, next) {
     var user = new User({
       email: req.body.email,
       username: req.body.username,

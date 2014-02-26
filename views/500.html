@@ -1,0 +1,8 @@
+{% extends 'layouts/main.html' %}
+
+{% block title %}Internal Server Error{% endblock %}
+
+{% block content %}
+<h1>Internal Server Error #{{err.status}}</h1>
+<p>{{err.message}}</p>
+{% endblock %}

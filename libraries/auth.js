@@ -1,6 +1,5 @@
 
-var path = require('path');
-var config = require('./config');
+var config = require('../config/config');
 var User = require('../models/user');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -8,7 +7,28 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
 
 // -----------------------------------
-// Persistent login sessions
+// Auth middleware for access control in controllers
+// -----------------------------------
+/**
+ * Ensure user is logged in
+ * Set url in flash to redirect user after logging in
+ */
+exports.isLoggedIn = function(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  req.flash('loginUrl', req.originalUrl);
+  res.redirect('/');
+};
+
+/**
+ * Ensure user is logged out
+ */
+exports.isLoggedOut = function(req, res, next) {
+  if (!req.isAuthenticated()) { return next(); }
+  res.redirect('/');
+};
+
+// -----------------------------------
+// Passport - Persistent login sessions
 // -----------------------------------
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -25,7 +45,6 @@ passport.deserializeUser(function(id, done) {
 /**
  * Local strategy
  *   http://passportjs.org/guide/username-password/
- *   use in "controllers/user.js" in "app.post('/login', ...)"
  */
 passport.use(new LocalStrategy({
     usernameField: 'login',
@@ -38,15 +57,13 @@ passport.use(new LocalStrategy({
     User.findOne(condition, function(err, user) {
       if (err) { return done(err); }
       if (!user) {
-        return done(null, false, { loginErrorMessage: 'Email/username not found' });
+        return done(null, false, { loginError: 'Email/username not found' });
       }
-      /* Uncomment this is you want to inform users about social logins
       if (!user.password) {
-        return done(null, false, { passwordErrorMessage: 'No password set. Social login?' });
+        return done(null, false, { loginError: 'No password set. Social login?' });
       }
-      */
       if (!user.verifyPassword(password)) {
-        return done(null, false, { passwordErrorMessage: 'Incorrect password' });
+        return done(null, false, { passwordError: 'Incorrect password' });
       }
       return done(null, user);
     });
@@ -84,9 +101,9 @@ if (config.facebook) {
           user = new User({
             email: profile.emails[0].value,
             username: profile.username,
-            name: profile.displayName,
             provider: 'facebook',
-            facebook: profile._json
+            facebook: profile._json,
+            profile: { name: profile.displayName }
           });
         }
 
@@ -117,9 +134,9 @@ if (config.twitter) {
       // create new user, check username, and save
       user = new User({
         username: profile.username,
-        name: profile.displayName,
         provider: 'twitter',
-        twitter: profile._json
+        twitter: profile._json,
+        profile: { name: profile.displayName }
       });
       checkUsernameAndSave(user, 'twitter_' + profile.id, done);
     });

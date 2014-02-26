@@ -20,9 +20,6 @@ fs.readdirSync(controllerPath).forEach(function (file) {
   }
 });
 
-// set up passport authentication
-require('./config/passport');
-
 // connect to db
 require('mongoose').connect(config.db);
 

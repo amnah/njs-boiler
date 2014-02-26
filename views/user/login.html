@@ -8,13 +8,13 @@
     <div>
         <label>Email/username:</label>
         <input type="text" name="login" value="{{ reqBody.login }}" />
-        {{ errors.loginErrorMessage }}
+        {{ errors.loginError }}
         {{ errors.message }}
     </div>
     <div>
         <label>Password:</label>
         <input type="password" name="password" value="{{ reqBody.password }}" />
-        {{ errors.passwordErrorMessage }}
+        {{ errors.passwordError }}
     </div>
     <div><input type="checkbox" name="rememberme"/>Remember Me</div>
     <div><input type="submit" value="Login"/> or <a href="/register">register</a></div>
