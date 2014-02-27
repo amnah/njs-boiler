@@ -60,7 +60,7 @@ passport.use(new LocalStrategy({
         return done(null, false, { loginError: 'Email/username not found' });
       }
       if (!user.password) {
-        return done(null, false, { loginError: 'No password set. Social login?' });
+        return done(null, false, { passwordError: 'No password set. Social login?' });
       }
       if (!user.verifyPassword(password)) {
         return done(null, false, { passwordError: 'Incorrect password' });
