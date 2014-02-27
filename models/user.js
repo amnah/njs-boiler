@@ -66,8 +66,8 @@ userSchema.pre('save', function preSave(next) {
  * Encrypt password
  */
 userSchema.methods.encryptPassword = function(inputPassword) {
-  var salt = bcrypt.genSaltSync(12);
-  return hash = bcrypt.hashSync(inputPassword, salt);
+  var salt = bcrypt.genSaltSync(13);
+  return bcrypt.hashSync(inputPassword, salt);
 };
 
 /**
