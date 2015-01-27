@@ -1,0 +1,15 @@
+{
+  "apps" : [{
+    "name"            : "app",
+    "cwd"             : "/var/www/app",
+    "script"          : "bin/www",
+    "exec_mode"       : "cluster_mode",
+    "watch"           : "../",
+    "ignoreWatch"     : ["[\\/\\\\]\\./", "node_modules", "public"],
+    "log_date_format" : "YYYY-MM-DD HH:mm:ss Z",
+    "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app"
+    }
+  }]
+}

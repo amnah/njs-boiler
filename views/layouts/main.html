@@ -13,10 +13,10 @@
     <a href="/">home</a> | <a href="/about">about</a> |
 
     {% if user %}
-        <a href="/user">user</a> | <a href="/logout">logout</a> | {{ user.displayName() }}
+        <a href="/user">user</a> | <a href="/user/logout">logout</a> | {{ user.displayName() }}
     {% else %}
-        <a href="/login">login</a> | <a href="/register">register</a> |
-        <a href="/auth/facebook">facebook</a> | <a href="/auth/twitter">twitter</a><br/>
+        <a href="/user/login">login</a> | <a href="/user/register">register</a> |
+        <a href="/user/auth/facebook">facebook</a> | <a href="/user/auth/twitter">twitter</a><br/>
     {% endif %}
 </p>
 

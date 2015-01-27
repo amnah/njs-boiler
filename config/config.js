@@ -8,8 +8,17 @@ var config = {
   env: env,
   port: port,
   db: 'mongodb://localhost/dev',
-  cookieSecret: 'your secret here',
+  cookieParserSecret: 'xxx',
+  mongoSessionSecret: 'yyy',
   rememberMeDuration: 30*24*60*60*1000, // 'remember me' for 30 days (milliseconds)
+
+  // site config
+  // these variables will be available in all views, e.g., {{ site.title }}
+  site: {
+    title: 'My Website',
+    author: 'Author',
+    description: 'My Description'
+  },
 
   // facebook config
   // comment these out if you don't want facebook authentication
@@ -25,20 +34,17 @@ var config = {
     consumerKey: 'xxx',
     consumerSecret: 'yyy',
     callbackURL: 'http://localhost:3000/auth/twitter/callback'
-  },
-
-  // example site config
-  // these variables will be available in all views, e.g., {{ site.title }}
-  site: {
-    title: 'My Website',
-    author: 'author',
-    description: 'my description'
   }
 };
 
 // override config based on environment
-if (env === 'production') {
+if (env === 'development') {
+  config.site.title = config.site.title + ' (Dev)';
+}
+else if (env === 'production') {
   config.db = 'mongodb://localhost/prod';
+  config.cookieParserSecret = 'xxxx';
+  config.mongoSessionSecret = 'yyyy';
 }
 
 // export module

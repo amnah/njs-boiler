@@ -1,16 +1,21 @@
 {
-  "name": "application-name",
-  "version": "0.0.1",
+  "name": "app",
+  "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "express": "*",
+    "body-parser": "*",
+    "cookie-parser": "*",
+    "debug": "*",
     "swig": "*",
-    "less-middleware": "*",
-    "mongoose": "*",
+    "express": "*",
+    "morgan": "*",
+    "serve-favicon": "*",
+    "mongoose": "~3.8",
     "bcrypt-nodejs": "*",
+    "express-session": "*",
     "connect-mongo": "*",
     "connect-flash": "*",
     "passport": "*",

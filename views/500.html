@@ -3,6 +3,7 @@
 {% block title %}Internal Server Error{% endblock %}
 
 {% block content %}
-<h1>Internal Server Error #{{err.status}}</h1>
-<p>{{err.message}}</p>
+<h1>Internal Server Error (#{{status}})</h1>
+<p>{{message}}</p>
+<p>{{stack}}</p>
 {% endblock %}

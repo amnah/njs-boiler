@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>{{ title }}</h1>
-<form action="/login" method="post">
+<form action="/user/login" method="post">
     <div>
         <label>Email/username:</label>
         <input type="text" name="login" value="{{ reqBody.login }}" />
@@ -16,7 +16,7 @@
         <input type="password" name="password" value="{{ reqBody.password }}" />
         {{ errors.passwordError }}
     </div>
-    <div><input type="checkbox" name="rememberme"/>Remember Me</div>
-    <div><input type="submit" value="Login"/> or <a href="/register">register</a></div>
+    <div><input type="checkbox" name="rememberme" checked="checked"/>Remember Me</div>
+    <div><input type="submit" value="Login"/> or <a href="/user/register">register</a></div>
 </form>
 {% endblock %}

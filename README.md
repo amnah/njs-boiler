@@ -21,7 +21,6 @@ It was heavily inspired by [nodejs-passport-boilerplate]
     * Schema and validation for User model
 * Swig template (instead of jade)
     * Similar syntax to PHP
-* LESS for compiling CSS
 * Passport for user authentication
     * User login/registration
     * Facebook integration
@@ -32,10 +31,10 @@ It was heavily inspired by [nodejs-passport-boilerplate]
 ### Installation
 1. ```git clone https://github.com/amnah/njs-boiler myappname```
 2. ```cd myappname && npm install```
-3. ```nano config/config.js``` modify as desired
-4. ```node app.js```
+3. ```nano config/config.js``` (modify as desired)
+4. ```DEBUG=app node bin/www```
 5. Open up browser to ```http://localhost:3000```
-6. For specifying different environments ```NODE_ENV=production node app.js```
+6. *Optional* - Specify different environments ```NODE_ENV=production DEBUG=app node bin/www```
 7. *Optional* - Add indexes for facebook/twitter id
 
 ```javascript
@@ -44,10 +43,7 @@ db.users.ensureIndex({"twitter.id_str":1})
 ```
 
 ### Good reads
-* [Understanding Node modules - require() and modules]
-(http://amnah.net/2014/01/29/learning-node-js-part-1-require-and-modules/)
-* [Express routing](http://expressjs.com/api.html#app.VERB)
-for routing in controllers
+* [Express](http://expressjs.com/)
 * [Mongoose guide](http://mongoosejs.com/docs/guide.html)
 * [Swig syntax](http://paularmstrong.github.io/swig/docs/#variables)
 * [Passport guide](http://passportjs.org/guide)
