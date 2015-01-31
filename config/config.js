@@ -18,10 +18,13 @@ var config = {
     title: 'My Website',
     author: 'Author',
     description: 'My Description'
-  },
+  }
 
+  // uncomment these if you want social auth
+  // dont forget the comma above ^^^
+
+  /*
   // facebook config
-  // comment these out if you don't want facebook authentication
   facebook: {
     clientID:    'xxx',
     clientSecret: 'yyy',
@@ -29,12 +32,12 @@ var config = {
   },
 
   // twitter config
-  // comment these out if you don't want twitter authentication
   twitter: {
     consumerKey: 'xxx',
     consumerSecret: 'yyy',
     callbackURL: 'http://localhost:3000/auth/twitter/callback'
   }
+  */
 };
 
 // override config based on environment
